@@ -30,7 +30,7 @@
   <script src="js/transliterator-bali.js" type="text/javascript" charset="utf-8"></script>
 
   <script type="text/javascript" charset="utf-8">
-    $(function () {
+    function initApp() {
       // Hamburger menu functionality
       $('.hamburger-menu').on('click', function() {
         $(this).toggleClass('active');
@@ -214,7 +214,17 @@
 
       updateLabelsAndFonts();
       updateOutput();
-    });
+    }
+
+    function waitForJquery() {
+      if (window.jQuery) {
+        initApp();
+      } else {
+        setTimeout(waitForJquery, 50);
+      }
+    }
+
+    waitForJquery();
   </script>
 </head>
 
