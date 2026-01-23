@@ -202,6 +202,7 @@ textarea {
 }
 
 .aksara-helper button {
+  font-family: "Vimala", "Aksara Bali", sans-serif;
   background: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -399,6 +400,7 @@ form[name="formText"] {
 @font-face {
   font-family: 'Vimala';
   src: local("ᬳᬓ᭄ᬲᬭᬩᬮᬶ"),
+       url('Vimala-Regular.woff2') format('woff2'),
        url('Vimala-Regular.eot'),
        url('Vimala-Regular.eot?#iefix') format('embedded-opentype'),
        url('Vimala-Regular.woff') format('woff'),
