@@ -31,11 +31,12 @@
 
   <script type="text/javascript" charset="utf-8">
     function initApp() {
-      // Hamburger menu functionality
-      $('.hamburger-menu').on('click', function() {
-        $(this).toggleClass('active');
-        $('.menu-overlay').fadeToggle(300);
-      });
+      $(function () {
+        // Hamburger menu functionality
+        $('.hamburger-menu').on('click', function() {
+          $(this).toggleClass('active');
+          $('.menu-overlay').fadeToggle(300);
+        });
 
       $('.menu-overlay').on('click', function(e) {
         if (e.target === this) {
@@ -212,8 +213,9 @@
         textarea.focus();
       });
 
-      updateLabelsAndFonts();
-      updateOutput();
+        updateLabelsAndFonts();
+        updateOutput();
+      });
     }
 
     function waitForJquery() {
