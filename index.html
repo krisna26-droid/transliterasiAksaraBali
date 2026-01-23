@@ -1,56 +1,348 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="jv-java" xml:lang="jv">
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <meta content="utf-8" http-equiv="encoding" />
-    <meta http-equiv="X-UA-Compatible" content="text/html;" />
-    <meta property="fb:admins" content="100002305543276" />
-    <title>Nulisa Aksara Bali -- Balinese Transliteration by bennylin</title>
-    <link rel="stylesheet" href="css/specimen_stylesheet.css" type="text/css" charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="encoding" content="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="text/html;" />
+  <title>Balinese Transliteration</title>
+
+  <!-- Consolidated styles -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" charset="utf-8" />
+
+  <!-- Dependency loader for local scripts with CDN fallbacks -->
+  <script type="text/javascript" charset="utf-8">
+    function loadDependency(src) {
+      var script = document.createElement('script');
+      script.src = src;
+      script.async = false;
+      document.head.appendChild(script);
+    }
+  </script>
+  <script src="js/vendor/jquery-1.7.2.min.js"
+          type="text/javascript" charset="utf-8"
+          onerror="loadDependency('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')"></script>
+  <script src="js/vendor/trans-bali.js"
+          type="text/javascript" charset="utf-8"
+          onerror="loadDependency('//jv.wikipedia.org/w/index.php?title=Panganggo:Bennylin/trans-bali.js&amp;action=raw&amp;ctype=text/javascript')"></script>
+  <!-- Local Balinese transliterator (for Balinese → Latin) -->
+  <script src="js/transliterator-bali.js" type="text/javascript" charset="utf-8"></script>
+
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      // Hamburger menu functionality
+      $('.hamburger-menu').on('click', function() {
+        $(this).toggleClass('active');
+        $('.menu-overlay').fadeToggle(300);
+      });
+
+      $('.menu-overlay').on('click', function(e) {
+        if (e.target === this) {
+          $('.hamburger-menu').removeClass('active');
+          $(this).fadeOut(300);
+        }
+      });
+
+      $('.menu-item').on('click', function() {
+        $('.hamburger-menu').removeClass('active');
+        $('.menu-overlay').fadeOut(300);
+      });
+
+      // Menu navigation
+      $('#menu-transliterate').on('click', function(e) {
+        e.preventDefault();
+        $('#about-section').hide();
+        $('#app').show();
+      });
+
+      $('#menu-about').on('click', function(e) {
+        e.preventDefault();
+        $('#app').hide();
+        $('#about-section').show();
+      });
+      var mode = 'latn2bali'; // or 'bali2latn'
+      var resultVariants = [];
+      var activeResultIndex = 0;
+
+      function renderActiveResult() {
+        if (!resultVariants.length) {
+          $('#balinese-output').val('');
+          $('#balinese-output').removeClass('has-content');
+          $('#result-indicator').text('Belum ada hasil');
+          $('#result-cycle').prop('disabled', true);
+          return;
+        }
+        var canCycle = mode === 'latn2bali' && resultVariants.length > 1;
+        $('#result-cycle').prop('disabled', !canCycle);
+        var option = resultVariants[activeResultIndex];
+        var displayText = option.value || '';
+        $('#balinese-output').val(displayText);
+        if (displayText.trim().length > 0) {
+          $('#balinese-output').addClass('has-content');
+        } else {
+          $('#balinese-output').removeClass('has-content');
+        }
+        $('#result-indicator').text('Opsi ' + (activeResultIndex + 1) + '/' + resultVariants.length + ': ' + option.label);
+      }
+
+      function buildResultVariants(text) {
+        var cleanText = text || '';
+        if (mode === 'latn2bali') {
+          var transforms = [
+            { label: 'Dengan spasi', value: cleanText },
+            { label: 'Tanpa spasi', value: cleanText.replace(/\s+/g, '') }
+          ];
+          return transforms.map(function (transform) {
+            return {
+              label: transform.label,
+              value: latinToBali(transform.value)
+            };
+          });
+        }
+        return [{
+          label: 'Default',
+          value: baliToLatin(cleanText)
+        }];
+      }
+
+      function latinToBali(text) {
+        if (typeof DoTransliterate === 'function') {
+          return DoTransliterate(text) || '';
+        }
+        return '';
+      }
+
+      function baliToLatin(text) {
+        if (typeof transliterate === 'function' && typeof bali2latn !== 'undefined') {
+          var $hidden = $('#hidden-edit');
+          $hidden.val(text);
+          transliterate(bali2latn);
+          return $hidden.val() || '';
+        }
+        return '';
+      }
+
+      function updateLabelsAndFonts() {
+        if (mode === 'latn2bali') {
+          $('#left-label').text('Latin');
+          $('#right-label').text('Aksara Bali');
+          $('#latin-input')
+            .removeClass('bali-font')
+            .attr('placeholder', 'Tulis teks Latin di sini...');
+          $('#balinese-output')
+            .addClass('bali-font')
+            .attr('placeholder', 'Hasil aksara Bali akan muncul di sini...');
+          $('.direction-text').text('Latin → Aksara Bali');
+          $('#aksara-helper').hide();
+          $('.footer-note').show();
+        } else {
+          $('#left-label').text('Aksara Bali');
+          $('#right-label').text('Latin');
+          $('#latin-input')
+            .addClass('bali-font')
+            .attr('placeholder', 'Tulis aksara Bali di sini...');
+          $('#balinese-output')
+            .removeClass('bali-font')
+            .attr('placeholder', 'Hasil Latin akan muncul di sini...');
+          $('.direction-text').text('Aksara Bali → Latin');
+          $('#aksara-helper').show();
+          $('.footer-note').hide();
+        }
+      }
+
+      function updateOutput() {
+        var text = $('#latin-input').val() || '';
+        resultVariants = buildResultVariants(text);
+        activeResultIndex = 0;
+        renderActiveResult();
+
+        if (mode === 'bali2latn' && text.trim().length > 0) {
+          $('#latin-input').addClass('has-content');
+        } else {
+          $('#latin-input').removeClass('has-content');
+        }
+      }
+
+      $('#latin-input').on('input', function() {
+        var text = $(this).val() || '';
+        // Toggle larger font for input when it has Balinese content
+        if (mode === 'bali2latn' && text.trim().length > 0) {
+          $(this).addClass('has-content');
+        } else if (mode === 'bali2latn') {
+          $(this).removeClass('has-content');
+        }
+        updateOutput();
+      });
+
+      $('input[name="mode"]').on('change', function () {
+        mode = $(this).val();
+        $('#latin-input').val('');
+        $('#balinese-output').val('');
+        $('#latin-input').removeClass('has-content');
+        $('#balinese-output').removeClass('has-content');
+        updateLabelsAndFonts();
+        updateOutput();
+      });
+
+      $('#result-cycle').on('click', function () {
+        if (mode !== 'latn2bali' || resultVariants.length <= 1) {
+          return;
+        }
+        activeResultIndex = (activeResultIndex + 1) % resultVariants.length;
+        renderActiveResult();
+      });
+
+      $('#aksara-helper').on('click', 'button', function () {
+        var char = $(this).data('char') || '';
+        if (!char) {
+          return;
+        }
+        var textarea = $('#latin-input')[0];
+        if (!textarea) {
+          return;
+        }
+        var start = textarea.selectionStart || 0;
+        var end = textarea.selectionEnd || 0;
+        var currentValue = textarea.value || '';
+        var nextValue = currentValue.slice(0, start) + char + currentValue.slice(end);
+        textarea.value = nextValue;
+        textarea.selectionStart = textarea.selectionEnd = start + char.length;
+        $('#latin-input').trigger('input');
+        textarea.focus();
+      });
+
+      updateLabelsAndFonts();
+      updateOutput();
+    });
+  </script>
 </head>
 
 <body>
-    <div id="container">
-        <div id="header">Transliterasi Aksara Nusantara</div>
-        <div id="main_content">
-            <div id="home">
-                <div>
-                    <h1>Cara termudah untuk menulis Aksara-Aksara Nusantara</h1>
-                    <ul>
-                        <li><a href="https://bennylin.github.io/transliterasi/jawa.html">Transliterasi Aksara Jawa (Javanese Script Transliteration)</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/bali.html">Transliterasi Aksara Bali (Balinese Script Transliteration)</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/bugis.html">Transliterasi Aksara Bugis (Buginese Script Transliteration)</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/#">(akan datang) Transliterasi aksara-aksara lainnya</a></li>
-                        <li><a href="https://github.com/bennylin/transliterasi/issues">Berikan masukan!</a></li>
-                    </ul>
-                    <h1>Baru 2021!</h1>
-                    <ul>
-                        <li><a href="https://bennylin.github.io/transliterasi/toba.html">Transliterasi aksara Batak Toba</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/simalungun.html">Transliterasi aksara Batak Simalungun</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/angkola-mandailing.html">Transliterasi aksara Batak Angkola-Mandailing</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/karo.html">Transliterasi aksara Batak Karo</a></li>
-                        <li><a href="https://bennylin.github.io/transliterasi/pakpak-dairi.html">Transliterasi aksara Batak Pakpak-Dairi</a></li>
-                        <li><a href="https://github.com/bennylin/transliterasi/issues">Berikan masukan!</a></li>
-                    </ul>
-                    <h1>Situs eksternal</h1>
-                    <ul>
-                        <li><a href="https://konversiaksarasunda.blogspot.com/">Transliterasi aksara Sunda (konversiaksarasunda.blogspot.com)</a></li>
-                        <li><a href="https://www.kairaga.com/font-sunda/konversi-otomatis/">Transliterasi aksara Sunda (kairaga.com)</a></li>
-                        <li><a href="https://meizano.github.io/lampung/">Transliterasi aksara Lampung</a></li>
-								        <li><a href="https://www.kompiwin.com/translate-aksara/jawa/">Transliterator Kompiwin</a>: bukan "translator"/"translasi", tapi "transliterasi". Translasi itu "penerjemahan bahasa A ke B", sedangkan ini transliterasi, bahasanya sama, aksaranya yang berubah. Dilengkapi dengan papan ketik virtual. Rilis 28 Mei 2020</li>
-								        <li><a href="https://kongresaksarajawa.id/salinsaja/">Salin Saja</a>: buatan situs Kongres Aksara Jawa. Menggunakan kamus internal sebesar hampir 1 MB, yang otomatis mengubah kata-kata menjadi versi yang lebih "tepat", misalnya "malioboro" akan otomatis berubah menjadi "maliyabara", menurut situsnya "... sesuai ketentuan kedinasan di DIY." Rilis 08 September 2021</p>
-								        <li><a href="https://www.autobild.co.id/p/aksara-jawa.html">Generator Huruf Aksara Jawa Online</a>: Oleh Alfa Autobild. Rilis 20 Juli 2022. Situsnya terlihat baru dan menarik, namun sayangnya kodenya mencomot dari Kompiwin.</li>
-								        <li>Beberapa masukan untuk ketiga transliterator di atas: suku kata vokal, masih menggunakan Aksara Swara, mungkin bisa diganti dengan "ha" + sandhangan swara, misalnya "yaiku", "aku" dll.. Namun selain itu, hasil ketiganya sudah sangat bagus, dan sudah saya tes dengan kombinasi yang aneh-aneh, ketiganya bisa mentransliterasi dengan cukup akurat. Perlu diacungi jempol.</li>
-								        <li><a href="https://aksharamukha.appspot.com/input/Javanese">Aksaramukha: Transliterator yang paling menarik. Dikembangkan oleh orang India, <a href="http://www.virtualvinodh.com/">Vinodh Rajan Sampath</a>, sejak 19 November 2018. Tersedia di <a href="https://github.com/virtualvinodh/aksharamukha">github</a> (sumber terbuka, lisensi GNU GPL 3.0), dan tidak cuma mendukung <a href="https://aksharamukha.appspot.com/describe/Javanese">Aksara Jawa</a>, tapi juga aksara Bali, 5 aksara Batak, Bugis, Kawi, Makassar, Rejang, Sunda, dan juga memiliki <a href="https://aksharamukha.appspot.com/converter">Konverter</a> otomatis dari satu akasara ke aksara lainnya berbagai aksara Nusantara, India, dan Asia/dunia! Ada banyak sekali fitur-fitur situs ini, misalnya <a href="https://aksharamukha.appspot.com/script-matrix">Matriks 120 Skrip</a>, sehingga tidak dapat saya ringkas dalam satu paragraf ini. Kekurangannya adalah beliau tidak memahami aksara-aksara Nusantara dan masih banyak kesalahan di hasil Aksara Jawanya, jadi pengembangannya bersifat India-sentris, sebatas pengetahuan yang dia peroleh di internet. Saya jadi kembali ingin mewujudkan cita-cita saya untuk membuat transliterator dari aksara satu ke aksara lainnya (mis. Jawa-Bali). Hal yan menarik: " {} is used to stop conjuncts formation. bud{}dha : ꦧꦸꦢ꧀‌ꦣ :: lak{}shha : ꦭꦏ꧀‌ꦰ"</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <div class="hamburger-icon">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
-    </script>
+  </div>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay">
+    <div class="menu-content">
+      <a href="#home" class="menu-item" id="menu-transliterate">Transliterasi</a>
+      <a href="#about" class="menu-item" id="menu-about">Tentang</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="app">
+    <h1>Transliterasi Teks Latin ke Aksara Bali</h1>
+    <p class="subtitle">
+      Mode saat ini: <span class="direction-text">Latin → Aksara Bali</span>. Teks sebelah kiri adalah input, sebelah kanan adalah hasil.
+    </p>
+
+    <div class="mode-toggle">
+      <label>
+        <input type="radio" name="mode" value="latn2bali" checked="checked" />
+        Latin → Aksara Bali
+      </label>
+      <label>
+        <input type="radio" name="mode" value="bali2latn" />
+        Aksara Bali → Latin
+      </label>
+      </div>
+
+    <div class="panes">
+      <div class="pane">
+        <div class="pane-label" id="left-label">Latin</div>
+        <textarea id="latin-input" placeholder="Tulis teks Latin di sini..."></textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-label" id="right-label">Aksara Bali</div>
+        <textarea id="balinese-output" readonly
+                  placeholder="Hasil aksara Bali akan muncul di sini..."></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="aksara-helper" id="aksara-helper" style="display: none;">
+      <div class="aksara-helper-label">Virtual Keyboard:</div>
+      <div class="aksara-helper-row">
+        <button type="button" data-char="ᬅ">ᬅ</button>
+        <button type="button" data-char="ᬇ">ᬇ</button>
+        <button type="button" data-char="ᬉ">ᬉ</button>
+        <button type="button" data-char="ᬏ">ᬏ</button>
+        <button type="button" data-char="ᬑ">ᬑ</button>
+      </div>
+      <div class="aksara-helper-row">
+        <button type="button" data-char="ᬓ">ᬓ</button>
+        <button type="button" data-char="ᬕ">ᬕ</button>
+        <button type="button" data-char="ᬗ">ᬗ</button>
+        <button type="button" data-char="ᬘ">ᬘ</button>
+        <button type="button" data-char="ᬚ">ᬚ</button>
+        <button type="button" data-char="ᬜ">ᬜ</button>
+        <button type="button" data-char="ᬢ">ᬢ</button>
+        <button type="button" data-char="ᬤ">ᬤ</button>
+        <button type="button" data-char="ᬦ">ᬦ</button>
+        <button type="button" data-char="ᬧ">ᬧ</button>
+        <button type="button" data-char="ᬩ">ᬩ</button>
+        <button type="button" data-char="ᬫ">ᬫ</button>
+        <button type="button" data-char="ᬬ">ᬬ</button>
+        <button type="button" data-char="ᬭ">ᬭ</button>
+        <button type="button" data-char="ᬮ">ᬮ</button>
+        <button type="button" data-char="ᬯ">ᬯ</button>
+        <button type="button" data-char="ᬲ">ᬲ</button>
+        <button type="button" data-char="ᬳ">ᬳ</button>
+      </div>
+      <div class="aksara-helper-row">
+        <button type="button" data-char="ᬶ">ᬶ</button>
+        <button type="button" data-char="ᬸ">ᬸ</button>
+        <button type="button" data-char="ᬾ">ᬾ</button>
+        <button type="button" data-char="ᬵ">ᬵ</button>
+        <button type="button" data-char="ᭂ">ᭂ</button>
+        <button type="button" data-char="ᬂ">ᬂ</button>
+        <button type="button" data-char="ᬃ">ᬃ</button>
+        <button type="button" data-char="ᬄ">ᬄ</button>
+        <button type="button" data-char="᭄">᭄</button>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Catatan singkat: "e" menghasilkan taling, "x" menghasilkan pepet.
+    </div>
+
+    <!-- Hidden form used internally by original transliterator function for Bali → Latin -->
+    <form name="formText">
+      <textarea name="editSrc" id="hidden-edit"></textarea>
+    </form>
+  </div>
+
+  <!-- About Section (hidden by default) -->
+  <div id="about-section">
+    <div class="about-card">
+      <h1>Tentang Aplikasi</h1>
+      <p class="subtitle">
+        Aplikasi Transliterasi Teks Latin ke Aksara Bali untuk membantu penulisan aksara Bali di komputer. <br>
+        Aplikasi mungkin menghasilkan aksara Bali yang tidak valid.
+      </p>
+
+      <h2>Kredit</h2>
+      <ul>
+        <li>Original work: <a href="https://bennylin.github.io/transliterasi/bali.html" target="_blank">Benny Lin</a></li>
+        <li>Vimala font: <a href="https://github.com/longnow/bali-fonts" target="_blank">Aditya Bayu Perdana</a></li>
+      </ul>
+
+      <p class="about-author">
+        Dikembangkan oleh I Gede Andika, Institut Bisnis dan Teknologi Indonesia (INSTIKI), Bali.
+      </p>
+
+      <button type="button" onclick="$('#about-section').hide(); $('#app').show();">Kembali</button>
+    </div>
+  </div>
+  <div class="result-fab" aria-live="polite">
+    <button type="button" id="result-cycle">Hasil transliterasi</button>
+    <span id="result-indicator">Opsi 1/2: Default</span>
+  </div>
 </body>
 </html>

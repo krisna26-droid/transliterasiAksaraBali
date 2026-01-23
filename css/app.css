@@ -1,0 +1,408 @@
+/* Reset (adapted from specimen_stylesheet.css) */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, blockquote, pre,
+a, abbr, acronym, address, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd,
+fieldset, form, label, legend, table,
+caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  line-height: 1;
+  color: #000;
+  background-color: #dcdcdc;
+}
+
+a {
+  text-decoration: none;
+  color: #1883ba;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+:focus {
+  outline: 0;
+}
+
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Application styles */
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+#app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 48px;
+}
+
+#app h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  margin-bottom: 24px;
+  color: #555;
+}
+
+.mode-toggle {
+  margin: 12px 0 16px;
+  font-size: 13px;
+  color: #444;
+}
+
+.mode-toggle label {
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.panes {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pane {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 12px;
+}
+
+.pane-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.result-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  color: #444;
+  z-index: 1000;
+}
+
+.result-fab button {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.result-fab button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.result-fab button:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.result-fab span {
+  font-size: 13px;
+  color: #444;
+}
+
+@media (max-width: 640px) {
+  .result-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 16px;
+    justify-content: center;
+  }
+}
+
+textarea {
+  flex: 1;
+  width: 100%;
+  resize: vertical;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.aksara-helper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  color: #444;
+}
+
+.aksara-helper-label {
+  font-weight: bold;
+  text-align: center;
+}
+
+.aksara-helper-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.aksara-helper button {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.aksara-helper button:hover {
+  background: #e6e6e6;
+}
+
+#balinese-output {
+  font-family: "Vimala", "Aksara Bali", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+#balinese-output.has-content {
+  font-size: 24px;
+}
+
+#latin-input.bali-font.has-content {
+  font-size: 24px;
+}
+
+.bali-font {
+  font-family: "Vimala", "Aksara Bali", sans-serif;
+  line-height: 1.4;
+}
+
+.bali-font.has-content {
+  font-size: 24px;
+}
+
+.footer-note {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #777;
+}
+
+.hamburger-menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.menu-content {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  min-width: 200px;
+  animation: slideDown 0.3s ease;
+}
+
+.menu-item {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+
+@media (max-width: 640px) {
+  #app {
+    padding-top: 64px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+#about-section {
+  display: none;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.about-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+}
+
+.about-card h1 {
+  margin-bottom: 16px;
+}
+
+.about-card .subtitle {
+  margin-bottom: 24px;
+}
+
+.about-card ul {
+  padding-left: 20px;
+  margin-bottom: 24px;
+}
+
+.about-card ul li {
+  margin-bottom: 8px;
+}
+
+.about-card .about-author {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 14px;
+}
+
+.about-card button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.about-card button:hover {
+  background: #0056b3;
+}
+
+form[name="formText"] {
+  display: none;
+}
+
+/* Font face declarations */
+@font-face {
+  font-family: 'Vimala';
+  src: local("ᬳᬓ᭄ᬲᬭᬩᬮᬶ"),
+       url('Vimala-Regular.eot'),
+       url('Vimala-Regular.eot?#iefix') format('embedded-opentype'),
+       url('Vimala-Regular.woff') format('woff'),
+       url('Vimala-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
