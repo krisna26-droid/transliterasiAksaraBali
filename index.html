@@ -250,7 +250,10 @@
 
   <!-- Main Content -->
   <div id="app">
-    <h1>Transliterasi Teks Latin ke Aksara Bali</h1>
+    <div class="title-row">
+      <h1>Transliterasi Teks Latin ke Aksara Bali</h1>
+      <img src="assets/instiki-logo.png" alt="INSTIKI logo" class="brand-logo" />
+    </div>
     <p class="subtitle">
       Mode saat ini: <span class="direction-text">Latin → Aksara Bali</span>. Teks sebelah kiri adalah input, sebelah kanan adalah hasil.
     </p>
@@ -279,7 +282,7 @@
     </div>
     <br>
     <div class="aksara-helper" id="aksara-helper" style="display: none;">
-      <div class="aksara-helper-label">Virtual Keyboard:</div>
+      <div class="aksara-helper-label">Tombol Virtual:</div>
       <div class="aksara-helper-row">
         <button type="button" data-char="ᬅ">ᬅ</button>
         <button type="button" data-char="ᬇ">ᬇ</button>
@@ -288,24 +291,36 @@
         <button type="button" data-char="ᬑ">ᬑ</button>
       </div>
       <div class="aksara-helper-row">
-        <button type="button" data-char="ᬓ">ᬓ</button>
-        <button type="button" data-char="ᬕ">ᬕ</button>
-        <button type="button" data-char="ᬗ">ᬗ</button>
-        <button type="button" data-char="ᬘ">ᬘ</button>
-        <button type="button" data-char="ᬚ">ᬚ</button>
-        <button type="button" data-char="ᬜ">ᬜ</button>
-        <button type="button" data-char="ᬢ">ᬢ</button>
-        <button type="button" data-char="ᬤ">ᬤ</button>
-        <button type="button" data-char="ᬦ">ᬦ</button>
-        <button type="button" data-char="ᬧ">ᬧ</button>
-        <button type="button" data-char="ᬩ">ᬩ</button>
-        <button type="button" data-char="ᬫ">ᬫ</button>
-        <button type="button" data-char="ᬬ">ᬬ</button>
-        <button type="button" data-char="ᬭ">ᬭ</button>
-        <button type="button" data-char="ᬮ">ᬮ</button>
-        <button type="button" data-char="ᬯ">ᬯ</button>
-        <button type="button" data-char="ᬲ">ᬲ</button>
+        <button type="button" data-char="᭐">᭐</button>
+        <button type="button" data-char="᭑">᭑</button>
+        <button type="button" data-char="᭒">᭒</button>
+        <button type="button" data-char="᭓">᭓</button>
+        <button type="button" data-char="᭔">᭔</button>
+        <button type="button" data-char="᭕">᭕</button>
+        <button type="button" data-char="᭖">᭖</button>
+        <button type="button" data-char="᭗">᭗</button>
+        <button type="button" data-char="᭘">᭘</button>
+        <button type="button" data-char="᭙">᭙</button>
+      </div>
+      <div class="aksara-helper-row">
         <button type="button" data-char="ᬳ">ᬳ</button>
+        <button type="button" data-char="ᬦ">ᬦ</button>
+        <button type="button" data-char="ᬘ">ᬘ</button>
+        <button type="button" data-char="ᬭ">ᬭ</button>
+        <button type="button" data-char="ᬓ">ᬓ</button>
+        <button type="button" data-char="ᬤ">ᬤ</button>
+        <button type="button" data-char="ᬢ">ᬢ</button>
+        <button type="button" data-char="ᬲ">ᬲ</button>
+        <button type="button" data-char="ᬧ">ᬧ</button>
+        <button type="button" data-char="ᬮ">ᬮ</button>
+        <button type="button" data-char="ᬫ">ᬫ</button>
+        <button type="button" data-char="ᬕ">ᬕ</button>
+        <button type="button" data-char="ᬩ">ᬩ</button>
+        <button type="button" data-char="ᬗ">ᬗ</button>
+        <button type="button" data-char="ᬯ">ᬯ</button>
+        <button type="button" data-char="ᬚ">ᬚ</button>
+        <button type="button" data-char="ᬬ">ᬬ</button>
+        <button type="button" data-char="ᬜ">ᬜ</button> 
       </div>
       <div class="aksara-helper-row">
         <button type="button" data-char="ᬶ">ᬶ</button>
@@ -317,6 +332,8 @@
         <button type="button" data-char="ᬃ">ᬃ</button>
         <button type="button" data-char="ᬄ">ᬄ</button>
         <button type="button" data-char="᭄">᭄</button>
+        <button type="button" data-char="᭞">᭞</button>
+        <button type="button" data-char="᭟">᭟</button>
       </div>
     </div>
 
