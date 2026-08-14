@@ -251,7 +251,7 @@ return { "CoreSound": "ᬜ", "len": 2 };
 } else if (str.indexOf("ry") == 0) { //'ry', e.g. Suryati, Wiryadi
 return { "CoreSound": "ᬃᬬ", "len": 2 };
 } else if (str.indexOf("y") == 1) { //pengkal
-return { "CoreSound": "" + GetCoreSound(str[0]).CoreSound + "", "len": 2 };
+return { "CoreSound": "" + GetCoreSound(str[0]).CoreSound + "᭄ᬬ", "len": 2 };
 } else if (str.indexOf("y") > 1) { //suku kata memiliki konsonan 'y' yang tidak di awal suku
 var sound = "";
 var len = 0;
