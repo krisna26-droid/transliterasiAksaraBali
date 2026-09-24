@@ -387,7 +387,7 @@ textarea {
   box-sizing: border-box;
   font-family: inherit;
   color: var(--color-ink);
-  background: var(--color-surface);
+  background: #fff;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
