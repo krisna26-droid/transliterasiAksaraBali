@@ -1,23 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jv-java" xml:lang="jv">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="encoding" content="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="text/html;" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EKARA - English to Aksara Bali</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 
-  <!-- Consolidated styles -->
-  <link rel="stylesheet" href="css/app.css" type="text/css" charset="utf-8" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/app.css">
 
-  <!-- Dependency loader for local scripts with CDN fallbacks -->
-  <script type="text/javascript" charset="utf-8">
+  <!-- Loader untuk fallback CDN jika file lokal gagal dimuat -->
+  <script>
     function loadDependency(src) {
       var script = document.createElement('script');
       script.src = src;
@@ -28,205 +25,234 @@
 
   <!-- jQuery -->
   <script src="js/vendor/jquery-1.7.2.min.js"
-          type="text/javascript"
-          charset="utf-8"
-          onerror="loadDependency('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')"></script>
+          onerror="loadDependency('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')"></script>
 
-  <!-- Main Balinese transliteration engine -->
+  <!-- Mesin transliterasi Aksara Bali -->
   <script src="js/vendor/trans-bali.js"
-          type="text/javascript"
-          charset="utf-8"
-          onerror="loadDependency('//jv.wikipedia.org/w/index.php?title=Panganggo:Bennylin/trans-bali.js&amp;action=raw&amp;ctype=text/javascript')"></script>
+          onerror="loadDependency('https://jv.wikipedia.org/w/index.php?title=Panganggo:Bennylin/trans-bali.js&action=raw&ctype=text/javascript')"></script>
 
-  <!-- Local Balinese transliterator -->
-  <script src="js/transliterator-bali.js"
-          type="text/javascript"
-          charset="utf-8"></script>
+  <!-- Transliterator lokal -->
+  <script src="js/transliterator-bali.js"></script>
 
-  <!-- English phonetic preprocessing -->
-  <script src="js/vendor/trans-english2.js"
-          type="text/javascript"
-          charset="utf-8"></script>
+  <!-- Praproses fonetik Inggris -->
+  <script src="js/vendor/trans-english2.js"></script>
 
-  <script type="text/javascript" charset="utf-8">
+  <script>
     function initApp() {
       $(function () {
 
-        /* ============================================================
-           LANGUAGE
-        ============================================================ */
-
-        var currentLang = 'id';
+        /* ==========================================================
+           TEKS BAHASA (ID / EN)
+        ========================================================== */
 
         var translations = {
           id: {
-            navTrans: "Transliterasi",
-            navAbout: "Tentang",
-
-            subtitle:
-              "English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Mode saat ini: ",
-            subtitleSub:
-              ". Teks sebelah kiri adalah input, sebelah kanan adalah hasil.",
-
-            modeLatin: "Latin → Aksara Bali",
-            modeEng: "Teks Inggris → Aksara Bali",
-
-            labelLatin: "Latin",
-            labelEng: "Teks Inggris",
-            labelBali: "Aksara Bali",
-
-            placeholderLatin: "Tulis teks Latin di sini...",
-            placeholderEng: "Tulis teks Inggris di sini...",
-            placeholderBali: "Hasil aksara Bali akan muncul di sini...",
-
-            labelPhonetic: "Fonetik (Latin)",
-
-            btnCycle: "Ubah Opsi",
-            optWithSpace: "Dengan spasi",
-            optNoSpace: "Tanpa spasi",
-
-            footerNote:
-              'Catatan singkat: "e" menghasilkan taling, "ê" atau "ě" menghasilkan pepet ("x" dipakai untuk bunyi "ks").',
-
-            aboutTitle: "Tentang EKARA",
-
-            aboutSubtitle:
-              "<strong>EKARA</strong> — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Aplikasi untuk membantu penulisan aksara Bali di komputer, dari teks Latin maupun teks Inggris.<br>Aplikasi mungkin menghasilkan aksara Bali yang tidak valid.",
-
-            aboutCredits: "Kredit",
-
-            aboutAuthor:
-              "Dikembangkan oleh I Gede Andika, Institut Bisnis dan Teknologi Indonesia (INSTIKI), Bali.",
-
-            btnBack: "Kembali"
+            navTrans: 'Transliterasi',
+            navAbout: 'Tentang',
+            subtitle: 'English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Mode saat ini: ',
+            subtitleSub: '. Teks sebelah kiri adalah input, sebelah kanan adalah hasil.',
+            modeLatin: 'Latin → Aksara Bali',
+            modeEng: 'Teks Inggris → Aksara Bali',
+            labelLatin: 'Latin',
+            labelEng: 'Teks Inggris',
+            labelBali: 'Aksara Bali',
+            placeholderLatin: 'Tulis teks Latin di sini...',
+            placeholderEng: 'Tulis teks Inggris di sini...',
+            placeholderBali: 'Hasil aksara Bali akan muncul di sini...',
+            labelPhonetic: 'Fonetik (Latin)',
+            btnCycle: 'Ubah Opsi',
+            optWithSpace: 'Dengan spasi',
+            optNoSpace: 'Tanpa spasi',
+            footerNote: 'Catatan singkat: "e" menghasilkan taling, "ê" atau "ě" menghasilkan pepet ("x" dipakai untuk bunyi "ks").',
+            aboutTitle: 'Tentang EKARA',
+            aboutSubtitle: '<strong>EKARA</strong> — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Aplikasi untuk membantu penulisan aksara Bali di komputer, dari teks Latin maupun teks Inggris.<br>Aplikasi mungkin menghasilkan aksara Bali yang tidak valid.',
+            aboutCredits: 'Kredit',
+            aboutAuthor: 'Dikembangkan oleh I Gede Andika, Institut Bisnis dan Teknologi Indonesia (INSTIKI), Bali.',
+            btnBack: 'Kembali'
           },
-
           en: {
-            navTrans: "Transliteration",
-            navAbout: "About",
-
-            subtitle:
-              "English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Current mode: ",
-            subtitleSub:
-              ". The text on the left is input, the text on the right is the result.",
-
-            modeLatin: "Latin → Balinese Script",
-            modeEng: "English Text → Balinese Script",
-
-            labelLatin: "Latin",
-            labelEng: "English Text",
-            labelBali: "Balinese Script",
-
-            placeholderLatin: "Write Latin text here...",
-            placeholderEng: "Write English text here...",
-            placeholderBali:
-              "Balinese script output will appear here...",
-
-            labelPhonetic: "Phonetic (Latin)",
-
-            btnCycle: "Cycle Option",
-            optWithSpace: "With spaces",
-            optNoSpace: "Without spaces",
-
-            footerNote:
-              'Quick note: "e" produces taling, "ê" or "ě" produces pepet ("x" is used for the "ks" sound).',
-
-            aboutTitle: "About EKARA",
-
-            aboutSubtitle:
-              "<strong>EKARA</strong> — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. An application to assist writing Balinese script on computers from Latin or English text.<br>The application may produce invalid Balinese script.",
-
-            aboutCredits: "Credits",
-
-            aboutAuthor:
-              "Developed by I Gede Andika, Institute of Business and Technology Indonesia (INSTIKI), Bali.",
-
-            btnBack: "Back"
+            navTrans: 'Transliteration',
+            navAbout: 'About',
+            subtitle: 'English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Current mode: ',
+            subtitleSub: '. The text on the left is input, the text on the right is the result.',
+            modeLatin: 'Latin → Balinese Script',
+            modeEng: 'English Text → Balinese Script',
+            labelLatin: 'Latin',
+            labelEng: 'English Text',
+            labelBali: 'Balinese Script',
+            placeholderLatin: 'Write Latin text here...',
+            placeholderEng: 'Write English text here...',
+            placeholderBali: 'Balinese script output will appear here...',
+            labelPhonetic: 'Phonetic (Latin)',
+            btnCycle: 'Cycle Option',
+            optWithSpace: 'With spaces',
+            optNoSpace: 'Without spaces',
+            footerNote: 'Quick note: "e" produces taling, "ê" or "ě" produces pepet ("x" is used for the "ks" sound).',
+            aboutTitle: 'About EKARA',
+            aboutSubtitle: '<strong>EKARA</strong> — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. An application to assist writing Balinese script on computers from Latin or English text.<br>The application may produce invalid Balinese script.',
+            aboutCredits: 'Credits',
+            aboutAuthor: 'Developed by I Gede Andika, Institute of Business and Technology Indonesia (INSTIKI), Bali.',
+            btnBack: 'Back'
           }
         };
 
+        /* ==========================================================
+           STATE
+        ========================================================== */
 
-        /* ============================================================
-           HAMBURGER MENU
-        ============================================================ */
+        var currentLang = 'id';
+        var mode = 'latn2bali';      // 'latn2bali' | 'eng2bali'
+        var resultVariants = [];
+        var activeResultIndex = 0;
+        var lastPhonetic = '';
 
-        $('.hamburger-menu').on('click', function() {
+        /* ==========================================================
+           MENU HAMBURGER & NAVIGASI
+        ========================================================== */
+
+        function closeMenu() {
+          $('.hamburger-menu').removeClass('active');
+          $('.menu-overlay').fadeOut(300);
+        }
+
+        function showView(view) {
+          var isAbout = view === 'about';
+          $('#about-section').toggle(isAbout);
+          $('#app').toggle(!isAbout);
+        }
+
+        $('.hamburger-menu').on('click', function () {
           $(this).toggleClass('active');
           $('.menu-overlay').fadeToggle(300);
         });
 
-        $('.menu-overlay').on('click', function(e) {
-          if (e.target === this) {
-            $('.hamburger-menu').removeClass('active');
-            $(this).fadeOut(300);
+        $('.menu-overlay').on('click', function (e) {
+          if (e.target === this) closeMenu();
+        });
+
+        $('.menu-item').on('click', closeMenu);
+
+        $('#menu-transliterate').on('click', function (e) {
+          e.preventDefault();
+          showView('app');
+        });
+
+        $('#menu-about').on('click', function (e) {
+          e.preventDefault();
+          showView('about');
+        });
+
+        $('#btn-back-about').on('click', function () {
+          showView('app');
+        });
+
+        /* ==========================================================
+           PEMBUNGKUS FUNGSI TRANSLITERASI
+        ========================================================== */
+
+        function latinToBali(text) {
+          return typeof DoTransliterate === 'function' ? (DoTransliterate(text) || '') : '';
+        }
+
+        function englishToPhonetic(text) {
+          return typeof EnglishToLatin === 'function' ? (EnglishToLatin(text) || '') : '';
+        }
+
+        // Hanya untuk tampilan (x → e); algoritma tetap memakai nilai asli.
+        function toDisplayPhonetic(text) {
+          return (text || '').replace(/x/g, 'e');
+        }
+
+        /* ==========================================================
+           BANGUN VARIAN HASIL (dengan / tanpa spasi)
+        ========================================================== */
+
+        function buildResultVariants(text) {
+          var source = text || '';
+
+          if (mode === 'eng2bali') {
+            // Ejaan Inggris → Latin fonetik → Aksara Bali
+            source = englishToPhonetic(source);
+            lastPhonetic = toDisplayPhonetic(source);
           }
-        });
 
-        $('.menu-item').on('click', function() {
-          $('.hamburger-menu').removeClass('active');
-          $('.menu-overlay').fadeOut(300);
-        });
+          return [
+            { labelKey: 'withSpace', value: latinToBali(source) },
+            { labelKey: 'noSpace',   value: latinToBali(source.replace(/\s+/g, '')) }
+          ];
+        }
 
+        /* ==========================================================
+           RENDER
+        ========================================================== */
 
-        /* ============================================================
-           MENU NAVIGATION
-        ============================================================ */
+        function renderActiveResult() {
+          var $output = $('#balinese-output');
 
-        $('#menu-transliterate').on('click', function(e) {
-          e.preventDefault();
-
-          $('#about-section').hide();
-          $('#app').show();
-        });
-
-        $('#menu-about').on('click', function(e) {
-          e.preventDefault();
-
-          $('#app').hide();
-          $('#about-section').show();
-        });
-
-
-        /* ============================================================
-           LANGUAGE SWITCHER
-        ============================================================ */
-
-        $('.lang-btn').on('click', function() {
-
-          var lang = $(this).data('lang');
-
-          if (lang === currentLang) {
+          if (!resultVariants.length) {
+            $output.val('').removeClass('has-content');
+            $('#result-indicator').text('0/0');
+            $('#result-cycle').prop('disabled', true);
             return;
           }
 
-          currentLang = lang;
+          var t = translations[currentLang];
+          var option = resultVariants[activeResultIndex];
+          var text = option.value || '';
+          var optionLabel = option.labelKey === 'withSpace' ? t.optWithSpace : t.optNoSpace;
 
-          $('.lang-btn').removeClass('active');
-          $(this).addClass('active');
+          $('#result-cycle').prop('disabled', resultVariants.length <= 1);
+          $output.val(text).toggleClass('has-content', text.trim().length > 0);
+          $('#result-indicator').text(
+            (activeResultIndex + 1) + '/' + resultVariants.length + ' (' + optionLabel + ')'
+          );
+        }
 
-          applyLanguage();
-        });
+        function renderPhoneticBox() {
+          var isEnglish = mode === 'eng2bali';
+          $('#phonetic-pane').toggle(isEnglish);
+          if (isEnglish) $('#phonetic-output').text(lastPhonetic || '');
+        }
 
+        function updateLabelsAndFonts() {
+          var t = translations[currentLang];
+          var isLatin = mode === 'latn2bali';
+
+          $('#left-label').text(isLatin ? t.labelLatin : t.labelEng);
+          $('#right-label').text(t.labelBali);
+          $('.direction-text').text(isLatin ? t.modeLatin : t.modeEng);
+
+          $('#latin-input')
+            .removeClass('bali-font')
+            .attr('placeholder', isLatin ? t.placeholderLatin : t.placeholderEng);
+
+          $('#balinese-output')
+            .addClass('bali-font')
+            .attr('placeholder', t.placeholderBali);
+
+          $('.footer-note').show();
+          renderPhoneticBox();
+        }
+
+        function updateOutput() {
+          resultVariants = buildResultVariants($('#latin-input').val() || '');
+          activeResultIndex = 0;
+          renderActiveResult();
+          renderPhoneticBox();
+        }
 
         function applyLanguage() {
-
           var t = translations[currentLang];
 
           $('#menu-transliterate').text(t.navTrans);
           $('#menu-about').text(t.navAbout);
-
           $('#sub-prefix').text(t.subtitle);
           $('#sub-suffix').text(t.subtitleSub);
-
           $('#mode-label-latin').text(t.modeLatin);
           $('#mode-label-eng').text(t.modeEng);
-
           $('#phonetic-label').text(t.labelPhonetic);
-
           $('#result-cycle').text(t.btnCycle);
-
           $('.footer-note').text(t.footerNote);
-
           $('#about-title').text(t.aboutTitle);
           $('#about-desc').html(t.aboutSubtitle);
           $('#about-credits-title').text(t.aboutCredits);
@@ -237,778 +263,181 @@
           updateOutput();
         }
 
+        /* ==========================================================
+           EVENT
+        ========================================================== */
 
-        /* ============================================================
-           TRANSLITERATION MODE
-        ============================================================ */
+        $('.lang-btn').on('click', function () {
+          var lang = $(this).data('lang');
+          if (lang === currentLang) return;
 
-        var mode = 'latn2bali';
+          currentLang = lang;
+          $('.lang-btn').removeClass('active');
+          $(this).addClass('active');
+          applyLanguage();
+        });
 
-        var resultVariants = [];
+        $('#latin-input').on('input', updateOutput);
 
-        var activeResultIndex = 0;
+        $('input[name="mode"]').on('change', function () {
+          mode = $(this).val();
+          lastPhonetic = '';
 
-        var lastPhonetic = '';
+          $('#latin-input, #balinese-output').val('').removeClass('has-content');
 
-
-        /* ============================================================
-           RENDER RESULT
-        ============================================================ */
-
-        function renderActiveResult() {
-
-          var t = translations[currentLang];
-
-          if (!resultVariants.length) {
-
-            $('#balinese-output').val('');
-            $('#balinese-output').removeClass('has-content');
-
-            $('#result-indicator').text('0/0');
-
-            $('#result-cycle').prop('disabled', true);
-
-            return;
-          }
-
-          var canCycle = resultVariants.length > 1;
-
-          $('#result-cycle').prop(
-            'disabled',
-            !canCycle
-          );
-
-          var option =
-            resultVariants[activeResultIndex];
-
-          var displayText =
-            option.value || '';
-
-          $('#balinese-output').val(displayText);
-
-          if (displayText.trim().length > 0) {
-
-            $('#balinese-output')
-              .addClass('has-content');
-
-          } else {
-
-            $('#balinese-output')
-              .removeClass('has-content');
-          }
-
-          var labelText;
-
-          if (option.labelKey === 'withSpace') {
-
-            labelText = t.optWithSpace;
-
-          } else {
-
-            labelText = t.optNoSpace;
-          }
-
-          $('#result-indicator').text(
-            (activeResultIndex + 1) +
-            '/' +
-            resultVariants.length +
-            ' (' +
-            labelText +
-            ')'
-          );
-        }
-
-
-        /* ============================================================
-           BUILD RESULT VARIANTS
-        ============================================================ */
-
-        function buildResultVariants(text) {
-
-          var cleanText = text || '';
-
-          var transforms;
-
-
-          /* ------------------------------------------------------------
-             LATIN → AKSARA BALI
-          ------------------------------------------------------------ */
-
-          if (mode === 'latn2bali') {
-
-            transforms = [
-
-              {
-                labelKey: 'withSpace',
-                value: cleanText
-              },
-
-              {
-                labelKey: 'noSpace',
-                value: cleanText.replace(/\s+/g, '')
-              }
-
-            ];
-
-
-          /* ------------------------------------------------------------
-             ENGLISH → AKSARA BALI
-
-             English spelling
-                    ↓
-             EnglishToLatin()
-                    ↓
-             phonetic Latin
-                    ↓
-             DoTransliterate()
-                    ↓
-             Aksara Bali
-          ------------------------------------------------------------ */
-
-          } else {
-
-            var phonetic =
-              englishToPhonetic(cleanText);
-
-            /*
-             * Nilai asli phonetic tetap digunakan
-             * untuk proses transliterasi.
-             */
-            lastPhonetic =
-              toDisplayPhonetic(phonetic);
-
-            transforms = [
-
-              {
-                labelKey: 'withSpace',
-                value: phonetic
-              },
-
-              {
-                labelKey: 'noSpace',
-                value:
-                  phonetic.replace(/\s+/g, '')
-              }
-
-            ];
-          }
-
-
-          return transforms.map(function(transform) {
-
-            return {
-
-              labelKey:
-                transform.labelKey,
-
-              value:
-                latinToBali(transform.value)
-
-            };
-
-          });
-        }
-
-
-        /* ============================================================
-           LATIN → BALI
-        ============================================================ */
-
-        function latinToBali(text) {
-
-          if (typeof DoTransliterate === 'function') {
-
-            return DoTransliterate(text) || '';
-
-          }
-
-          return '';
-        }
-
-
-        /* ============================================================
-           ENGLISH → PHONETIC LATIN
-        ============================================================ */
-
-        function englishToPhonetic(text) {
-
-          if (typeof EnglishToLatin === 'function') {
-
-            return EnglishToLatin(text) || '';
-
-          }
-
-          return '';
-        }
-
-
-        /* ============================================================
-           DISPLAY PHONETIC
-
-           Hanya mengubah tampilan x → e.
-           Nilai yang digunakan algoritma tetap nilai asli.
-        ============================================================ */
-
-        function toDisplayPhonetic(text) {
-
-          return (text || '').replace(/x/g, 'e');
-
-        }
-
-
-        /* ============================================================
-           UPDATE LABEL & FONT
-        ============================================================ */
-
-        function updateLabelsAndFonts() {
-
-          var t = translations[currentLang];
-
-
-          if (mode === 'latn2bali') {
-
-            $('#left-label')
-              .text(t.labelLatin);
-
-            $('#right-label')
-              .text(t.labelBali);
-
-            $('#latin-input')
-              .removeClass('bali-font')
-              .attr(
-                'placeholder',
-                t.placeholderLatin
-              );
-
-            $('#balinese-output')
-              .addClass('bali-font')
-              .attr(
-                'placeholder',
-                t.placeholderBali
-              );
-
-            $('.direction-text')
-              .text(t.modeLatin);
-
-
-          } else {
-
-            $('#left-label')
-              .text(t.labelEng);
-
-            $('#right-label')
-              .text(t.labelBali);
-
-            $('#latin-input')
-              .removeClass('bali-font')
-              .attr(
-                'placeholder',
-                t.placeholderEng
-              );
-
-            $('#balinese-output')
-              .addClass('bali-font')
-              .attr(
-                'placeholder',
-                t.placeholderBali
-              );
-
-            $('.direction-text')
-              .text(t.modeEng);
-          }
-
-
-          $('.footer-note').show();
-
-          renderPhoneticBox();
-        }
-
-
-        /* ============================================================
-           UPDATE OUTPUT
-        ============================================================ */
-
-        function updateOutput() {
-
-          var text =
-            $('#latin-input').val() || '';
-
-          resultVariants =
-            buildResultVariants(text);
-
-          activeResultIndex = 0;
-
-          renderActiveResult();
-
-          renderPhoneticBox();
-        }
-
-
-        /* ============================================================
-           PHONETIC BOX
-        ============================================================ */
-
-        function renderPhoneticBox() {
-
-          if (mode !== 'eng2bali') {
-
-            $('#phonetic-pane').hide();
-
-            return;
-          }
-
-          $('#phonetic-pane').show();
-
-          $('#phonetic-output')
-            .text(lastPhonetic || '');
-        }
-
-
-        /* ============================================================
-           INPUT EVENT
-        ============================================================ */
-
-        $('#latin-input').on('input', function() {
-
+          updateLabelsAndFonts();
           updateOutput();
-
         });
 
-
-        /* ============================================================
-           MODE SWITCH
-        ============================================================ */
-
-        $('input[name="mode"]').on(
-          'change',
-          function() {
-
-            mode = $(this).val();
-
-            $('#latin-input').val('');
-
-            $('#balinese-output').val('');
-
-            $('#latin-input')
-              .removeClass('has-content');
-
-            $('#balinese-output')
-              .removeClass('has-content');
-
-            /*
-             * Reset phonetic ketika pindah mode.
-             */
-            lastPhonetic = '';
-
-            updateLabelsAndFonts();
-
-            updateOutput();
-          }
-        );
-
-
-        /* ============================================================
-           RESULT OPTION BUTTON
-        ============================================================ */
-
-        $('#result-cycle').on('click', function() {
-
-          if (resultVariants.length <= 1) {
-
-            return;
-          }
-
-          activeResultIndex =
-            (activeResultIndex + 1) %
-            resultVariants.length;
-
+        $('#result-cycle').on('click', function () {
+          if (resultVariants.length <= 1) return;
+          activeResultIndex = (activeResultIndex + 1) % resultVariants.length;
           renderActiveResult();
         });
 
-
-        /* ============================================================
-           INITIALIZE
-        ============================================================ */
+        /* ==========================================================
+           INISIALISASI
+        ========================================================== */
 
         updateLabelsAndFonts();
-
         updateOutput();
-
       });
     }
 
-
-    /* ================================================================
-       WAIT FOR JQUERY
-    ================================================================ */
-
-    function waitForJquery() {
-
+    // Tunggu sampai jQuery siap (bisa datang dari fallback CDN)
+    (function waitForJquery() {
       if (window.jQuery) {
-
         initApp();
-
       } else {
-
-        setTimeout(
-          waitForJquery,
-          50
-        );
-
+        setTimeout(waitForJquery, 50);
       }
-    }
-
-    waitForJquery();
-
+    })();
   </script>
 </head>
 
-
 <body>
 
-  <!-- ================================================================
-       FIXED NAVBAR
-  ================================================================= -->
-
+  <!-- Navbar -->
   <div class="top-navbar">
-
     <div class="hamburger-menu">
-
       <div class="hamburger-icon">
-
         <div class="hamburger-line"></div>
-
         <div class="hamburger-line"></div>
-
         <div class="hamburger-line"></div>
-
       </div>
-
     </div>
-
-
-    <!-- Language Switcher -->
 
     <div class="lang-switcher">
-
-      <button
-        type="button"
-        class="lang-btn active"
-        data-lang="id">
-        ID
-      </button>
-
-      <button
-        type="button"
-        class="lang-btn"
-        data-lang="en">
-        EN
-      </button>
-
+      <button type="button" class="lang-btn active" data-lang="id">ID</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
     </div>
-
   </div>
 
-
-  <!-- ================================================================
-       MENU OVERLAY
-  ================================================================= -->
-
+  <!-- Menu overlay -->
   <div class="menu-overlay">
-
     <div class="menu-content">
-
-      <a
-        href="#home"
-        class="menu-item"
-        id="menu-transliterate">
-        Transliterasi
-      </a>
-
-      <a
-        href="#about"
-        class="menu-item"
-        id="menu-about">
-        Tentang
-      </a>
-
+      <a href="#home" class="menu-item" id="menu-transliterate">Transliterasi</a>
+      <a href="#about" class="menu-item" id="menu-about">Tentang</a>
     </div>
-
   </div>
 
-
-  <!-- ================================================================
-       MAIN APPLICATION
-  ================================================================= -->
-
+  <!-- Aplikasi utama -->
   <div id="app">
 
     <div class="title-row">
-
-      <h1 class="brand-title">
-        EKARA
-      </h1>
-
-      <!-- Logo INSTIKI dari kode dosen -->
-      <img
-        src="assets/instiki-logo.png"
-        alt="INSTIKI logo"
-        class="brand-logo" />
-
+      <h1 class="brand-title">EKARA</h1>
+      <img src="assets/instiki-logo.png" alt="INSTIKI logo" class="brand-logo">
     </div>
-
 
     <p class="subtitle">
-
-      <span id="sub-prefix">
-        English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Mode saat ini:
-      </span>
-
-      <span class="direction-text">
-        Latin → Aksara Bali
-      </span>
-
-      <span id="sub-suffix">
-        . Teks sebelah kiri adalah input, sebelah kanan adalah hasil.
-      </span>
-
+      <span id="sub-prefix">English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution. Mode saat ini: </span>
+      <span class="direction-text">Latin → Aksara Bali</span>
+      <span id="sub-suffix">. Teks sebelah kiri adalah input, sebelah kanan adalah hasil.</span>
     </p>
 
-
-    <!-- ==============================================================
-         MODE TOGGLE
-    ============================================================== -->
-
+    <!-- Pilihan mode -->
     <div class="mode-toggle">
-
       <label>
-
-        <input
-          type="radio"
-          name="mode"
-          value="latn2bali"
-          checked="checked" />
-
-        <span id="mode-label-latin">
-          Latin → Aksara Bali
-        </span>
-
+        <input type="radio" name="mode" value="latn2bali" checked>
+        <span id="mode-label-latin">Latin → Aksara Bali</span>
       </label>
-
-
       <label>
-
-        <input
-          type="radio"
-          name="mode"
-          value="eng2bali" />
-
-        <span id="mode-label-eng">
-          Teks Inggris → Aksara Bali
-        </span>
-
+        <input type="radio" name="mode" value="eng2bali">
+        <span id="mode-label-eng">Teks Inggris → Aksara Bali</span>
       </label>
-
     </div>
-
-
-    <!-- ==============================================================
-         TRANSLITERATION PANES
-    ============================================================== -->
 
     <div class="panes">
 
-
-      <!-- INPUT -->
-
+      <!-- Input -->
       <div class="pane">
-
         <div class="pane-header">
-
-          <div
-            class="pane-label"
-            id="left-label">
-            Latin
-          </div>
-
+          <div class="pane-label" id="left-label">Latin</div>
         </div>
-
-
-        <textarea
-          id="latin-input"
-          placeholder="Tulis teks Latin di sini..."></textarea>
-
+        <textarea id="latin-input" placeholder="Tulis teks Latin di sini..."></textarea>
       </div>
 
-
-      <!-- OUTPUT -->
-
+      <!-- Output -->
       <div class="pane">
-
         <div class="pane-header">
-
-          <div
-            class="pane-label"
-            id="right-label">
-            Aksara Bali
+          <div class="pane-label" id="right-label">Aksara Bali</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="result-indicator" class="option-indicator">0/0</span>
+            <button type="button" id="result-cycle" class="btn-cycle" disabled>Ubah Opsi</button>
           </div>
-
-
-          <div
-            style="display: flex; align-items: center; gap: 8px;">
-
-            <span
-              id="result-indicator"
-              class="option-indicator">
-              0/0
-            </span>
-
-
-            <button
-              type="button"
-              id="result-cycle"
-              class="btn-cycle"
-              disabled="disabled">
-              Ubah Opsi
-            </button>
-
-          </div>
-
         </div>
-
-
-        <textarea
-          id="balinese-output"
-          readonly="readonly"
-          placeholder="Hasil aksara Bali akan muncul di sini..."></textarea>
-
+        <textarea id="balinese-output" readonly placeholder="Hasil aksara Bali akan muncul di sini..."></textarea>
       </div>
 
-
-      <!-- ============================================================
-           PHONETIC OUTPUT
-      ============================================================= -->
-
-      <div
-        class="pane"
-        id="phonetic-pane"
-        style="display: none;">
-
+      <!-- Fonetik -->
+      <div class="pane" id="phonetic-pane" style="display: none;">
         <div class="pane-header">
-
-          <div
-            class="pane-label"
-            id="phonetic-label">
-            Fonetik (Latin)
-          </div>
-
+          <div class="pane-label" id="phonetic-label">Fonetik (Latin)</div>
         </div>
-
-
-        <div
-          id="phonetic-output"
-          class="phonetic-box">
-        </div>
-
+        <div id="phonetic-output" class="phonetic-box"></div>
       </div>
 
     </div>
 
-
-    <!-- ==============================================================
-         FOOTER NOTE
-    ============================================================== -->
-
     <div class="footer-note">
-
-      Catatan singkat:
-      "e" menghasilkan taling,
-      "ê" atau "ě" menghasilkan pepet
-      ("x" dipakai untuk bunyi "ks").
-
+      Catatan singkat: "e" menghasilkan taling, "ê" atau "ě" menghasilkan pepet ("x" dipakai untuk bunyi "ks").
     </div>
 
   </div>
 
-
-  <!-- ================================================================
-       ABOUT SECTION
-  ================================================================= -->
-
+  <!-- Halaman Tentang -->
   <div id="about-section">
-
     <div class="about-card">
 
+      <h1 id="about-title">Tentang EKARA</h1>
 
-      <h1 id="about-title">
-        Tentang EKARA
-      </h1>
-
-
-      <p
-        class="subtitle"
-        id="about-desc">
-
-        <strong>EKARA</strong>
-        — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution.
-        Aplikasi untuk membantu penulisan aksara Bali di komputer,
-        dari teks Latin maupun teks Inggris.
-        <br />
-
+      <p class="subtitle" id="about-desc">
+        <strong>EKARA</strong> — English-to-Aksara Bali Transliteration via Greedy Longest-Match N-Gram Substitution.
+        Aplikasi untuk membantu penulisan aksara Bali di komputer, dari teks Latin maupun teks Inggris.
+        <br>
         Aplikasi mungkin menghasilkan aksara Bali yang tidak valid.
-
       </p>
 
-
-      <h2 id="about-credits-title">
-        Kredit
-      </h2>
-
+      <h2 id="about-credits-title">Kredit</h2>
 
       <ul>
-
         <li>
           Original work:
-          <a
-            href="https://bennylin.github.io/transliterasi/bali.html"
-            target="_blank">
-            Benny Lin
-          </a>
+          <a href="https://bennylin.github.io/transliterasi/bali.html" target="_blank" rel="noopener">Benny Lin</a>
         </li>
-
         <li>
           Vimala font:
-          <a
-            href="https://github.com/longnow/bali-fonts"
-            target="_blank">
-            Aditya Bayu Perdana
-          </a>
+          <a href="https://github.com/longnow/bali-fonts" target="_blank" rel="noopener">Aditya Bayu Perdana</a>
         </li>
-
       </ul>
 
-
-      <p
-        class="about-author"
-        id="about-author-text">
-
-        Dikembangkan oleh I Gede Andika,
-        Institut Bisnis dan Teknologi Indonesia (INSTIKI), Bali.
-
+      <p class="about-author" id="about-author-text">
+        Dikembangkan oleh I Gede Andika & Nyoman Krisna Adi Guna, Institut Bisnis dan Teknologi Indonesia (INSTIKI), Bali.
       </p>
 
-
-      <button
-        type="button"
-        id="btn-back-about"
-        onclick="$('#about-section').hide(); $('#app').show();">
-
-        Kembali
-
-      </button>
+      <button type="button" id="btn-back-about">Kembali</button>
 
     </div>
-
   </div>
 
 </body>
