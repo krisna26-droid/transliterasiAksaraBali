@@ -1,0 +1,27 @@
+word,expected_phonetic,note
+restaurant,,tests 'au' digraph and word-final 'ant'
+parking,,tests unmapped 'ar' cluster + '-ing' ending via letter-map fallback
+reception,,tests 'sion'/'tion'-style fourgram near a 'pt' cluster
+laundry,,tests 'au' digraph plus consonant cluster 'ndry'
+massage,,tests 'ss' digraph and word-final 'age'
+villa,,tests 'll' digraph
+surfing,,tests 'ur' digraph plus '-ing' ending
+welcome,,tests silent-e word-final pattern
+closed,,tests 'os' cluster plus '-ed' ending
+beach,,tests 'ea' digraph plus 'ch' digraph
+spa,,short word; mostly letter-map fallback
+yoga,,tests y->i letter-map rule word-initially
+motorbike,,tests 'or' cluster and silent-e 'ike' ending (no trigram for 'ike', only 'ake' exists)
+rental,,tests 'al' digraph
+wifi,,tests short vowel-heavy word with no digraph matches
+checkout,,tests 'ck' cluster and 'ou' digraph
+souvenir,,tests 'ou' digraph and word-final 'ir'
+sunrise,,tests 'un' digraph and silent-e '-ise' ending
+boutique,,tests 'ou' digraph interacting with 'que' (q letter-map + 'ue' digraph)
+jewelry,,tests 'ew' cluster (unmapped) plus consonant cluster 'lry'
+taxi,,tests x->ks letter-map rule
+juice,,tests unmapped 'ui' vowel cluster
+zoo,,tests z->s letter-map rule plus 'oo' digraph
+pharmacy,,tests 'ph' digraph
+gallery,,tests 'll' digraph in a different vowel context than 'happy'/'collection'
+bakery,,tests 'ake'-adjacent context (bak-ery, not bake-ry)
